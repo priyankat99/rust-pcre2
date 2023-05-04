@@ -404,22 +404,22 @@ impl RegexBuilder {
 /// performance, it is better to clone a new regex for each thread.
 pub struct Regex {
     /// The configuration used to build the regex.
-    config: Arc<Config>,
+    pub config: Arc<Config>,
     /// The original pattern string.
-    pattern: String,
+    pub pattern: String,
     /// The underlying compiled PCRE2 object.
-    code: Arc<Code>,
+    pub code: Arc<Code>,
     /// The capture group names for this regex.
-    capture_names: Arc<Vec<Option<String>>>,
+    pub capture_names: Arc<Vec<Option<String>>>,
     /// A map from capture group name to capture group index.
-    capture_names_idx: Arc<HashMap<String, usize>>,
+    pub capture_names_idx: Arc<HashMap<String, usize>>,
     /// Mutable scratch data used by PCRE2 during matching.
     ///
     /// We use the same strategy as Rust's regex crate here, such that each
     /// thread gets its own match data to support using a Regex object from
     /// multiple threads simultaneously. If some match data doesn't exist for
     /// a thread, then a new one is created on demand.
-    match_data: CachedThreadLocal<RefCell<MatchData>>,
+    pub match_data: CachedThreadLocal<RefCell<MatchData>>,
 }
 
 impl Clone for Regex {
